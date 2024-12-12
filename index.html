@@ -178,13 +178,14 @@
 <b>How did you measure success? What experiments were used? What were the results, both quantitative and qualitative? Did you succeed? Did you fail? Why?</b>
 </p>
 <p>
-  The way we measured success was fairly simple: whether our lexical analysis (combining commonality and readability scores together) correctly determined whether the message was phishing or not against the ground truth label of the message. We wanted to answer whether the phishing messages used more common language than non-phishing messages and whether we would be able to detect that. However, contrary to our prediction, our model was not able to reliably create a distinction in the word choices and readability of the phishing messages versus the non-phishing messages. 
+  The way we measured success was fairly simple: whether our lexical analysis (combining commonality and readability scores together) correctly determined whether the message was phishing or not against the ground truth label of the message. We wanted to answer whether the phishing messages used more common language than non-phishing messages and whether we would be able to detect that. However, contrary to our prediction, our model was not able to reliably create a distinction in the word choices and readability of the phishing messages versus the non-phishing messages. When tested, we ran with a threshold of 0.5 since the score was normalized on a scale of zero to one. However, we leaned far more towards classifying messages as non-phishing. When we lowered the threshold down to around 0.33, we began to see the classification be evenly split up between phishing and non-phishing, but our accuracy decreased due to this as well, since non-phishing messages began to be classified as phishing. Ultimately we determined that our results were inconclusive as the metrics we used for classifications were insufficient in creating a distinction based on our tested dataset.
 </p>
 
 <div style="text-align: center;">
-<img style="height: 300px;" alt="" src="./loss.jpg">
-<img style="height: 300px;" alt="" src="./acuracy.jpg">
-<img style="height: 300px;" alt="" src="./ConfusionMatrix.jpg">
+<img style="height: 500px;" alt="" src="./TrustME_Confusion_Matrix_05_threshold.png">
+<img style="height: 300px;" alt="" src="./ARI_Threshold_counts.png">
+<img style="height: 300px;" alt="" src="./FKG_threshold_counts.png">
+<img style="height: 300px;" alt="" src="./Zipf_threshold_counts.png">
 </div>
 
 <br><br>
