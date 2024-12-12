@@ -128,40 +128,27 @@
 
 <p class="sys-img"><img src="./Teaser_Figure _Final_Draft.jpg" alt="imgname"></p>
 
-
-<h3 id="Timeline">Any subsection</h3>
-
-<ul>
-  <li>Nov 7: Have >=5 different knowledge databases that have relations for >80% of the non-phishing messages (Concept of non-phishing messages having more relations. Phishing ones having less relations, testing theory)</li>
-  </li>Nov 14: Have working queries to all DB's, aggregate, and score the results (Weighted voting based on results?)</li>
-  </li>Nov 21: Test workflow configurations to determine whether we need the truthfulness as a separate stage or can run concurrently (Binary -> truthfulness vs. Binary && truthfulness) (At this point, should have a working total model)</li>
-  </li>Nov 28: Wrap-up, schedule another meeting with mentors for further discussion and feedback</li>
-  </li>Dec 3: Poster presentation</li>
-  </li>Dec 12: Final report</li>
-</ul>
-<hr>
-
 <h2 id="introduction">Introduction / Background / Motivation</h2>
 
 <p>
 <b>What did you try to do? What problem did you try to solve? Articulate your objectives using absolutely no jargon.</b>
 </p>
 <p>
-  We aimed to create a tool that helps determine if a message, like an email or text, is trustworthy or not. This tool works by analyzing both the content and the context of the message to judge whether it contains misleading or harmful information. Our main goal was to provide a reliable way to identify messages that might be attempting to trick or deceive people, especially in cases where traditional methods might fail to catch more sophisticated, subtle attempts. With this tool, we hope to make communication safer by allowing people to recognize and avoid potentially untrustworthy messages.
+  The rise of online communication through emails and text messages has given scammers new ways to spread deceptive messages. Many existing methods for detecting these scams focus on spotting suspicious words, checking links, or using advanced computer models. However, these tools often miss how the overall writing style of a message can signal danger. We believe that phishing messages are often written using simpler language and more common words to trick a wider audience. Based on this idea, our research looks at how easy a message is to read and how frequently its words appear in everyday language. By analyzing these features, we aim to develop a more effective system for identifying phishing messages that current methods might overlook.
 </p>
 
 <p>
 <b>How is it done today, and what are the limits of current practice?</b>
 </p>
 <p>
-  Today, message screening relies largely on filters that detect known malicious phrases or patterns, such as keywords common in spam or phishing attempts. These systems can catch obvious threats but often miss more subtle or new types of deceptive messages that use clever wording or manipulation to avoid detection. Additionally, current methods rarely consider the broader context or factual accuracy of a message, focusing instead on surface-level cues. This approach can lead to errors, like marking safe messages as dangerous or, worse, allowing harmful ones to slip through. These limitations reveal a gap in the reliability and adaptability of traditional message screening tools, especially against evolving digital threats.
+  Current phishing detection research has focused extensively on machine learning models and structural analysis. Researchers such as Uddin and Sarker (2024) \cite{uddin2024} explored transformer-based models, while Çolhak et al. (2024) \cite{colhak2024} demonstrated that combining AI-driven text and HTML structure analysis improves detection. However, these models often rely solely on surface-level features, such as explicit phishing keywords and malicious link detection. This leaves a critical gap in detecting messages designed to appear genuine through subtle text manipulation. Our research proposes a more nuanced approach by incorporating lexical patterns, emphasizing readability and word commonality as previously unexplored dimensions in phishing detection.
 <p>
 
 <p>
 <b>Who cares? If you are successful, what difference will it make?</b>
 </p>
 <p>
-  If successful, this tool could significantly impact digital communication security by helping both individuals and organizations better identify untrustworthy messages, reducing the risk of falling victim to scams or misinformation. For businesses, it could mean enhanced security for sensitive information, while for individual users, it could provide an added layer of protection and peace of mind in their everyday communications. This advancement would foster safer online interactions, build user trust in digital communication channels, and reduce the broader social and financial impacts of online fraud and misinformation.
+  Our work has significant implications for advancing phishing detection systems by offering an innovative lexicographical analysis layer. Cybersecurity professionals, developers of secure communication systems, and email service providers could integrate our proposed approach into their existing frameworks. The potential to detect phishing messages based on readability and linguistic patterns adds a new dimension to message screening processes. By focusing on how messages are constructed rather than solely on what they contain, our research highlights the untapped potential of text-based analysis in strengthening online security and mitigating the risks posed by phishing attacks while protecting message confidentiality.
 </p>
 
 <hr>
@@ -173,7 +160,7 @@
 </p>
 
 <p>
-  We developed TrustME, a model designed to assess the trustworthiness of digital messages by combining initial filtering with deeper content analysis. To tackle the problem, we built a two-stage process: first, we trained TrustME on a phishing detection dataset of around 5,000 samples from Hugging Face to classify messages as either potentially harmful or benign. In this stage, we fine-tuned a RoBERTa model to detect known patterns in phishing content effectively. Next, we incorporated a second stage where non-harmful messages underwent context and knowledge-based verification using ConceptNet, allowing the model to assess factual accuracy and contextual relevance. This two-layered approach is new in its balance of simple detection with complex verification, and we believed it would be successful because it integrates surface-level cues with fact-checking to better catch subtle, nuanced attempts at deception that other models often miss.
+  Our initial approach aimed to develop a contextual understanding of phishing messages by leveraging word relationship data from external APIs. The idea was to extract contextual associations between words, enabling a deeper semantic analysis of message content. However, this approach faced significant limitations due to insufficient relational data provided by available APIs such as ConceptNet and DBpedia. This restricted our ability to build a comprehensive knowledge-base model. Recognizing these constraints, we revisited the core intent behind phishing messages – to deceive as many users as possible through easily digestible and widely understood language \cite{van2021semantics}. This reflection led us to formulate a new theory: phishing messages are likely crafted using simpler sentence structures and more commonly used words to maximize their reach. Shifting our focus we designed the detection system that combines readability scoring, which evaluates how easily a message can be understood, with word commonality analysis based on frequency metrics found in WordsAPI. This re-approach enabled us to explore phishing detection through a unique lexical lens, grounded in the fundamental principles of language accessibility and deceptive communication tactics. 
 </p>
 
 <p>
@@ -181,7 +168,7 @@
 </p>
 
 <p>
-  So far, our primary concern is integrating the Truth Detection aspect into our over all program. We anticipate that this may be difficult as detecting generally "true" statements is possible, it may be difficult for the model to determine what is true within a message without extensive knowledge of the context that the message was sent and recived under.
+  We ran into limitations with our API, as we were only allotted twenty-five thousand API requests per day on our current paid plan. This forced up to both limit the sample size of the messages we could use, and also limited the amount of keywords we could request per message in order to fit the limit of our current WordsAPI plan. Running our model multiple times while tweaking the code also contributed heavily to our limit as well. Additionally, the parsing of the message and extraction of the keywords made it difficult for us to run a robust sample size without our application timing out and losing progress.Considering that calculating readability of a given text is relatively straightforward and simple with the python package nltk, we did not anticipate to encounter any kind of challenges and difficulties during the implementation and calculation procedure itself. And we indeed got the readability scores smoothly.
 </p>
 
 <hr>
@@ -191,7 +178,7 @@
 <b>How did you measure success? What experiments were used? What were the results, both quantitative and qualitative? Did you succeed? Did you fail? Why?</b>
 </p>
 <p>
-  Our plan is measure success quantitatively by generating a randomized set of phishing and non-phishing emails (generated with the help of Gemini and ChatGPT) to use as final testing input. Our preliminary results show the phishing detecting model is accurately able to identify most phishing emails, now we must implement the truth detection aspect to find how it improves our results.
+  The way we measured success was fairly simple: whether our lexical analysis (combining commonality and readability scores together) correctly determined whether the message was phishing or not against the ground truth label of the message. We wanted to answer whether the phishing messages used more common language than non-phishing messages and whether we would be able to detect that. However, contrary to our prediction, our model was not able to reliably create a distinction in the word choices and readability of the phishing messages versus the non-phishing messages. 
 </p>
 
 <div style="text-align: center;">
@@ -214,8 +201,20 @@
   Does your work have potential harm or risk to our society? What kinds? If so, how can you address them?
   What limitations does your model have? How can you extend your work for future research?</p>
 
-
 <hr>
+
+<p>
+  Our research framework is designed with replicability in mind, leveraging widely available tools, publicly accessible datasets and APIs. The model's implementation relies on standard machine learning libraries, including Hugging Face's Transformers for RoBERTa fine-tuning and common readability scoring algorithms and word frequency retrieval. Our methodology is clearly defined, with step-by-step processes for data preparation, feature extraction, and score aggregation. Future researchers can reproduce our results by following these procedures, adjusting parameters, or applying the model to new datasets and gain better scores.
+</p>
+  <p>
+  Our research utilized a dataset consisting of general messages, covering a wide range of topics typically encountered in everyday online communication. While this dataset provided valuable insights into common linguistic patterns in phishing and benign messages, it limited our ability to explore more specialized phishing tactics aimed at specific industries or professional contexts. A more targeted dataset focusing on business-related messages, such as corporate emails or financial correspondence, could enhance the applicability of our model by exposing it to niche vocabulary and context-specific phishing strategies. Future research could benefit from developing or sourcing such domain-specific datasets, enabling a deeper understanding of how lexical features manifest in professionally oriented phishing attempts. This adaptation could inspire new lines of research in business email compromise (BEC) detection and tailored phishing prevention systems.
+  </p>
+  <p>
+  While our model processes textual data by extracting keywords and calculating scores based on word commonality and readability formulas, it inherently carries a potential privacy risk. Analyzing message content could, in theory, expose sensitive information if messages were stored or transmitted insecurely. However, our approach minimizes this risk by focusing solely on lexical features rather than the message's actual content. The model processes the text locally, extracts relevant scores, and discards the original message, ensuring that sensitive information is neither retained nor shared. Since we operate on abstracted numerical representations rather than raw text, the possibility of data leakage is significantly reduced. To further mitigate privacy concerns, future implementations could enhance security by applying encryption protocols, processing messages entirely on-device, or anonymizing data before analysis. This ensures that our research remains both technically sound and ethically responsible.
+  </p>
+  <p>
+  While our model offers a novel approach to phishing detection through lexical analysis, it faces certain limitations due to the evolving nature of phishing messages. Historically, phishing emails were often poorly constructed, featuring grammatical errors, awkward phrasing, and low lexical sophistication—traits our model was designed to detect through readability and word commonality scoring. However, the rise of advanced LLMs capable of generating highly coherent and convincing phishing messages challenges the effectiveness of our approach. As these models become more accessible, phishing attempts may increasingly exhibit professional writing quality, making lexical analysis alone insufficient. To address this, future research could integrate AI-generated text checkers into our TrustME scoring system, adding an adaptive layer that assesses the likelihood of a message being machine-generated. This would strengthen the detection process by balancing lexical evaluation with modern AI-driven checks, ensuring that the scoring system remains robust against more sophisticated phishing tactics.
+</p>
 
 
   </div>
